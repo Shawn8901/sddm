@@ -224,18 +224,23 @@ namespace SDDM {
             service = QStringLiteral("sddm-autologin");
         result = m_pam->start(service, user);
 
+        qDebug() << "[PAM] starting backend";
         if (!result)
             m_app->error(m_pam->errorString(), Auth::ERROR_INTERNAL);
+
+        qDebug() << "[PAM] Did start";
 
         return result;
     }
 
     bool PamBackend::authenticate() {
         if (!m_pam->authenticate()) {
+            qDebug() << "[PAM] Cant auth";
             m_app->error(m_pam->errorString(), Auth::ERROR_AUTHENTICATION);
             return false;
         }
         if (!m_pam->acctMgmt()) {
+            qDebug() << "[PAM] Cant acctMgmt";
             m_app->error(m_pam->errorString(), Auth::ERROR_AUTHENTICATION);
             return false;
         }
@@ -244,6 +249,7 @@ namespace SDDM {
 
     bool PamBackend::openSession() {
         if (!m_pam->setCred(PAM_ESTABLISH_CRED)) {
+            qDebug() << "[PAM] Cant open session";
             m_app->error(m_pam->errorString(), Auth::ERROR_AUTHENTICATION);
             return false;
         }
@@ -265,10 +271,12 @@ namespace SDDM {
         }
 
         if (!m_pam->putEnv(sessionEnv)) {
+            qDebug() << "[PAM] Cant put env";
             m_app->error(m_pam->errorString(), Auth::ERROR_INTERNAL);
             return false;
         }
         if (!m_pam->openSession()) {
+            qDebug() << "[PAM] cant open session";
             m_app->error(m_pam->errorString(), Auth::ERROR_INTERNAL);
             return false;
         }
