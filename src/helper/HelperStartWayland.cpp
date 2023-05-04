@@ -67,6 +67,8 @@ int main(int argc, char** argv)
         qWarning() << "SDDM was unable to start" << app.arguments()[1];
         return Auth::HELPER_DISPLAYSERVER_ERROR;
     }
+    qDebug("start greeter");
     helper.startGreeter(app.arguments()[2]);
+    qDebug("app exec");
     return app.exec();
 }
