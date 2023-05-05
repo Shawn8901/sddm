@@ -176,6 +176,9 @@ namespace SDDM {
             cmd << QStringLiteral("%1/sddm-greeter").arg(QStringLiteral(BIN_INSTALL_DIR))
                 << args;
 
+
+            qDebug() << "Running :" << cmd;
+
             // greeter environment
             QProcessEnvironment env;
             QProcessEnvironment sysenv = QProcessEnvironment::systemEnvironment();
