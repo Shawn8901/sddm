@@ -52,6 +52,7 @@ int main(int argc, char** argv)
 
     WaylandHelper helper;
     QObject::connect(&s, &SDDM::SignalHandler::sigtermReceived, &app, [] {
+        qDebug("received sigterm");
         QCoreApplication::exit(0);
     });
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &helper, [&helper] {
