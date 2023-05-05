@@ -71,5 +71,8 @@ int main(int argc, char** argv)
     qDebug("start greeter");
     helper.startGreeter(app.arguments()[2]);
     qDebug("app exec");
-    return app.exec();
+    auto ret =  app.exec();
+
+    qDebug() << "ret: " << ret;
+    return ret;
 }
